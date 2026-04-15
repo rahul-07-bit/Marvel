@@ -49,7 +49,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
           videoRef.current.pause();
           videoRef.current.currentTime = 0;
         } else {
-          videoRef.current.muted = true; 
+          videoRef.current.muted = true;
           videoRef.current.play().catch(console.error);
         }
       }
@@ -59,23 +59,23 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   const showVideo = isGlobal || isHovered;
 
   return (
-    <div 
+    <div
       className={`gallery-card-wrapper ${heightClass} w-full max-w-[80px] bg-[#1c1c1c] overflow-hidden relative group cursor-pointer`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      <video 
+      <video
         ref={videoRef}
         src={currentVideoSrc}
-        loop 
-        muted 
+        loop
+        muted
         playsInline
         preload="auto"
         className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         style={isGlobal ? { objectPosition: objectPosition } : {}}
       />
-      <img 
+      <img
         src={imgSrc}
         className={`absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}
         alt="Gallery character"
@@ -89,16 +89,16 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
   const [hoveredChar, setHoveredChar] = useState(null);
 
   const GALLERY_VIDEOS = [
-    "/videos/hulk.mp4",
-    "/videos/captainamerica.mp4",
-    "/videos/thor.mp4",
-    "/videos/blackpanther.mp4",
-    "/videos/Deadpool.mp4",
-    "/videos/venom.mp4",
-    "/videos/moonknight.mp4",
-    "/videos/drstrange.mp4",
-    "/videos/scarletwitch.mp4",
-    "/videos/loki.mp4"
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279122/hulk_aqsivg.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279038/captainamerica_wwdjft.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279052/blackpanther_ysbqe1.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279051/Deadpool_xfnekw.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279112/venom_aolqww.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279048/moonknight_y6pxim.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279096/drstrange_gmejw5.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279127/scarletwitch_c3kds0.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279047/loki_zhxgcu.mp4"
   ];
 
   const GALLERY_CHARS = [
@@ -151,12 +151,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="HULK"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[35%]" 
+          heightClass="h-[35%]"
           imgSrc="/images/hulk.jpg"
-          videoSrc="/videos/hulk.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279122/hulk_aqsivg.mp4"
         />
         {/* Col 1: Captain America */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={1}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -164,12 +164,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="CAPTAIN AMERICA"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[45%]" 
+          heightClass="h-[45%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuAZgf6hMEWbMzaPO8cGrXqA8Z1-DX2GhoxrfuzELYxf3FM4xDAwVv_E37itjupgiTp6sXpOTYT-nVSYr5coXxBTlmZ6hFnEyvo3OvVZzFdPBksjSxnPBHSLCLB7DVCoisGNAdWn21EDT0NK5si9QU4qvcnx8m6DSqbb0yz9WABRNeIeziEKWdZLBNe-am0jbIHWqrfBvMg-HEUCRBMN_gjWSKb7V1UHKNnY8zSBSvNJEhURMqMHBhi90OT39NQda-i5VcU49VS8vaU"
-          videoSrc="/videos/captainamerica.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279038/captainamerica_wwdjft.mp4"
         />
         {/* Col 2: Thor */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={2}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -177,12 +177,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="THOR"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[55%]" 
+          heightClass="h-[55%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuD5j-DsJwZppBYmfSqouvUfdHcQUzGVYlUnkXPgkZ40_DonUyEX-yO7EdinhuyqRJN4X9titaI3VtWv1MbbU7w3gt1Od9HYcsFHGUxWqGEXgTttXaV8Ace-zXU1N3Lo8CIdTn7DxftqXPLVCURMZOuPDKsYvZbl5eEH4j3EsYfKxUaSieoa5wXHuCEHPNbjK71QgDugMe2oki_d6k85i2vaAf2Nn2SJpBA8T_YySpWNZvCpDAZcCH8NV8bF1d-0_MECKEm31RaaPpA"
-          videoSrc="/videos/thor.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4"
         />
         {/* Col 3: Black Panther */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={3}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -190,12 +190,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="BLACK PANTHER"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[65%]" 
+          heightClass="h-[65%]"
           imgSrc="/images/blackpanther.jpg"
-          videoSrc="/videos/blackpanther.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279052/blackpanther_ysbqe1.mp4"
         />
         {/* Col 4: Deadpool */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={4}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -203,20 +203,20 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="DEADPOOL"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[75%]" 
+          heightClass="h-[75%]"
           imgSrc="/images/deadpool.jpg"
-          videoSrc="/videos/Deadpool.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279051/Deadpool_xfnekw.mp4"
         />
-        
+
         {/* Central Gap with Vertical Text */}
         <div className="flex flex-col items-center justify-center px-8 h-full">
           <h1 className="vertical-text font-headline text-gray-400 tracking-[0.4em] text-sm uppercase font-semibold leading-none transition-all duration-300">
             {activeText}
           </h1>
         </div>
-        
+
         {/* Col 5: Venom */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={5}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -224,12 +224,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="VENOM"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[75%]" 
+          heightClass="h-[75%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuBcVP6H6Dp2HuHw1bhSw4u4wOjTIwFzDvu9CEa8MhU3FwH3qthDhoCOVdtdPr02FGEhnrJWpmq6M5rtHMcMto48tvMO6L_tSEK1VL4joB7xuTivGZ9x8N_zCYoAdJZnVVrNsU7kXrtgEnVVNEfecQqimAOiB-Aw58OeomUuKZ0y1HpoPjLwQ05VVxtJCYVFPTk6uz0vpErRD4THiJp0Ifl4JB1a8hRa653y3KeTQeHa83WZAXQC5_T2nvyrDfJfm5ncp-e3go5Ie0s"
-          videoSrc="/videos/venom.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279112/venom_aolqww.mp4"
         />
         {/* Col 6: Moon Knight */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={6}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -237,12 +237,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="MOON KNIGHT"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[65%]" 
+          heightClass="h-[65%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCop0m3K06H9xr8rcZQKiLFcFMnlUaotY3m7qUzNoQbnxvviJKbZJXcm6dgWkIm5v7bZQu_7vDBibOMQapMeJtwo9ENkbt7CLqtL6veBE5iZPpGhpmJtmcV225W-WSFUotPNv2s-LhLuh5GGkgc2FmePoaXTvFzvzozAK7O2zryTuN0lCPopwUR3d8on9KUTzRwLY9R3HE7KREkM2LzllSiEj3Ez4wHPPYc_72j6q4KxlfqDc7dYn2ACqzunf20hZsROX2Xm1qMU4k"
-          videoSrc="/videos/moonknight.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279048/moonknight_y6pxim.mp4"
         />
         {/* Col 7: Doctor Strange */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={7}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -250,12 +250,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="DOCTOR STRANGE"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[55%]" 
+          heightClass="h-[55%]"
           imgSrc="/images/doctorstrange.png"
-          videoSrc="/videos/drstrange.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279096/drstrange_gmejw5.mp4"
         />
         {/* Col 8: Scarlet Witch */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={8}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -263,12 +263,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="SCARLET WITCH"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[45%]" 
+          heightClass="h-[45%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuA2uzTl3mNnFnGDfJ5p6niZYyPm0JskhDfSxGfBare3CZPuB5XAjeoJMZJpKASIgs_ANuDSE2-oIOI5KVTvK5niGsHah1Ny5Q4kxp2NBM8dyBb9iM9gha2ZrFP6pcW-R6vETiCQYmjAyasr7kbh14hVlDmq-MGaP2TkCmPDVUbXeJQbUhrkoBQnj-tItHIY6DO6FSmE4_ZNbCZ1DRzHrCK0Ek5970WZY62jYPDpHlFDVV4mABed4NFYyooOrrMqGWNocI1Cq7OoDJI"
-          videoSrc="/videos/scarletwitch.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279127/scarletwitch_c3kds0.mp4"
         />
         {/* Col 9: Loki */}
-        <GalleryCard 
+        <GalleryCard
           colIndex={9}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
@@ -276,9 +276,9 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           isVideoPlaying={isVideoPlaying}
           characterName="LOKI"
           setHoveredChar={setHoveredChar}
-          heightClass="h-[35%]" 
+          heightClass="h-[35%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuDWWw6MyqxUPjUcWCOiZ9KJVaVOZTj-aq_DlCj_i0fP9ipdywi17gNIUxde8ltrk5AIpx1-YgBKs783gDNe5Fr-6zkixPMzKuUXwHG3XQ8z-yScF75_szg3NFm2KM40OYNibPqW4ri4aOrJU5YBwWzt0me6Rgf10d8YWSbSqzKa2OktZRWHMlEYWA7cuIu389YimlcIzbCv7yTtkOd-kjKHt4Z-B6nzwWyFsVIrZah6P_1R31HUP1UXNoueJ1hoO8cB8sg7OokzliQ"
-          videoSrc="/videos/loki.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279047/loki_zhxgcu.mp4"
         />
       </div>
       <div className="mt-12 text-center z-10 px-4">
