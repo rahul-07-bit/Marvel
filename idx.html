@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marvel - Avengers Initiative</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@100..900&amp;family=Mrs+Saint+Delafield&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#ffb7af",
+                    "on-secondary-container": "#663500",
+                    "on-secondary-fixed": "#2f1500",
+                    "surface-container-highest": "#e4e2dd",
+                    "tertiary": "#433b36",
+                    "surface": "#fbf9f4",
+                    "inverse-primary": "#ffb4ac",
+                    "tertiary-container": "#5b524d",
+                    "surface-container-low": "#f5f3ee",
+                    "primary-fixed": "#ffdad6",
+                    "tertiary-fixed-dim": "#d1c4be",
+                    "surface-container": "#f0eee9",
+                    "on-surface": "#1b1c19",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#ffdcc3",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#8f0e13",
+                    "on-primary-fixed": "#410003",
+                    "tertiary-fixed": "#ede0d9",
+                    "primary-container": "#a31f1f",
+                    "error": "#ba1a1a",
+                    "on-background": "#1b1c19",
+                    "background": "#fbf9f4",
+                    "surface-bright": "#fbf9f4",
+                    "surface-tint": "#b22a28",
+                    "on-surface-variant": "#59413e",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#d2c6bf",
+                    "surface-container-high": "#eae8e3",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "outline-variant": "#e1bebb",
+                    "on-tertiary-fixed": "#211a16",
+                    "outline": "#8d706d",
+                    "primary": "#81000b",
+                    "inverse-on-surface": "#f2f1ec",
+                    "secondary": "#904d00",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb77d",
+                    "inverse-surface": "#30312e",
+                    "surface-variant": "#e4e2dd",
+                    "on-tertiary-fixed-variant": "#4e4540",
+                    "secondary-container": "#fe932c",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#dbdad5",
+                    "on-secondary-fixed-variant": "#6e3900",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "0px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"],
+                    "signature": ["Mrs Saint Delafield", "cursive"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .paper-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .ghost-filter {
+            filter: sepia(0.3) opacity(0.7) grayscale(0.5);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .ghost-filter:hover {
+            filter: sepia(0.1) opacity(1) grayscale(0);
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .arch-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            height: 60vh;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 1.25rem;
+        }
+
+        /* Menu Overlay Styles */
+        #menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .nav-item {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+        }
+        .nav-item:hover {
+            transform: translateX(15px);
+        }
+        .hero-transition {
+            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+    </style>
+</head>
+<body class="bg-[#fbf9f4] text-[#1b1c19] font-body selection:bg-primary-fixed selection:text-primary overflow-hidden">
+<div class="paper-grain"></div>
+<!-- Fullscreen Menu Overlay -->
+<div class="fixed inset-0 z-[100] bg-[#0a0a0a] text-white flex flex-col md:flex-row overflow-hidden" id="menu-overlay">
+<!-- Close Button -->
+<button class="fixed top-8 right-12 z-[110] hover:rotate-90 transition-transform duration-500 text-neutral-400 hover:text-white" id="close-menu">
+<span class="material-symbols-outlined text-[3rem] font-extralight" data-icon="close">close</span>
+</button>
+<div class="flex flex-col md:flex-row w-full h-full p-8 md:p-12 lg:p-24 items-center">
+<!-- LEFT SIDE: Navigation -->
+<div class="w-full md:w-1/2 flex flex-col justify-center space-y-8 lg:space-y-12 md:border-r border-white/5 pr-0 md:pr-12 lg:pr-24">
+<nav class="flex flex-col gap-6 lg:gap-8">
+<button class="nav-item group flex items-center text-left" onclick="updateMenuContent('moon-knight')" onmouseenter="updateMenuContent('moon-knight')">
+<span class="font-label text-[0.625rem] tracking-[0.4em] opacity-30 group-hover:opacity-100 mr-6 transition-opacity">01</span>
+<span class="font-headline text-4xl lg:text-7xl uppercase tracking-[0.1em] text-neutral-400 group-hover:text-white transition-colors duration-500">Moon Knight</span>
+</button>
+<button class="nav-item group flex items-center text-left" onclick="updateMenuContent('venom')" onmouseenter="updateMenuContent('venom')">
+<span class="font-label text-[0.625rem] tracking-[0.4em] opacity-30 group-hover:opacity-100 mr-6 transition-opacity">02</span>
+<span class="font-headline text-4xl lg:text-7xl uppercase tracking-[0.1em] text-neutral-400 group-hover:text-white transition-colors duration-500">Venom</span>
+</button>
+<button class="nav-item group flex items-center text-left" onclick="updateMenuContent('stories')" onmouseenter="updateMenuContent('stories')">
+<span class="font-label text-[0.625rem] tracking-[0.4em] opacity-30 group-hover:opacity-100 mr-6 transition-opacity">03</span>
+<span class="font-headline text-4xl lg:text-7xl uppercase tracking-[0.1em] text-neutral-400 group-hover:text-white transition-colors duration-500">Doctor Strange</span>
+</button>
+<button class="nav-item group flex items-center text-left" onclick="updateMenuContent('more')" onmouseenter="updateMenuContent('more')">
+<span class="font-label text-[0.625rem] tracking-[0.4em] opacity-30 group-hover:opacity-100 mr-6 transition-opacity">04</span>
+<span class="font-headline text-4xl lg:text-7xl uppercase tracking-[0.1em] text-neutral-400 group-hover:text-white transition-colors duration-500">More Characters</span>
+</button>
+</nav>
+<div class="mt-12 hidden md:block">
+<div class="flex gap-8 text-[0.625rem] tracking-[0.3em] font-label text-neutral-500">
+<a class="hover:text-white transition-colors" href="#">INSTAGRAM</a>
+<a class="hover:text-white transition-colors" href="#">TWITTER</a>
+<a class="hover:text-white transition-colors" href="#">BEHANCE</a>
+</div>
+</div>
+</div>
+<!-- RIGHT SIDE: Dynamic Content -->
+<div class="w-full md:w-1/2 h-full flex items-center justify-center pl-0 md:pl-12 lg:pl-24 relative overflow-hidden mt-8 md:mt-0">
+<div class="hero-transition flex flex-col items-center text-center max-w-lg" id="hero-content">
+<div class="relative w-[280px] md:w-[380px] h-[400px] md:h-[550px] mb-8 overflow-hidden bg-neutral-900 shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] group">
+<img alt="Hero Portrait" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[3000ms] ease-out grayscale-[0.3] group-hover:grayscale-0" id="hero-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCop0m3K06H9xr8rcZQKiLFcFMnlUaotY3m7qUzNoQbnxvviJKbZJXcm6dgWkIm5v7bZQu_7vDBibOMQapMeJtwo9ENkbt7CLqtL6veBE5iZPpGhpmJtmcV225W-WSFUotPNv2s-LhLuh5GGkgc2FmePoaXTvFzvzozAK7O2zryTuN0lCPopwUR3d8on9KUTzRwLY9R3HE7KREkM2LzllSiEj3Ez4wHPPYc_72j6q4KxlfqDc7dYn2ACqzunf20hZsROX2Xm1qMU4k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="space-y-4 px-4">
+<h3 class="font-signature text-6xl md:text-8xl text-primary-container" id="hero-name">Moon Knight</h3>
+<p class="font-body text-neutral-400 leading-relaxed text-sm md:text-base tracking-wide max-w-sm mx-auto opacity-80" id="hero-desc">
+                        A mysterious vigilante empowered by the Egyptian moon god Khonshu, balancing multiple identities and brutal justice.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TopNavBar -->
+<header class="bg-[#fbf9f4] text-[#81000b] docked full-width top-0 border-none flex items-center w-full px-12 py-8 max-w-none fixed z-40 flex justify-between items-center">
+<div class="flex items-center">
+<span class="font-signature text-5xl text-[#1b1c19] tracking-tighter leading-none">Marvel</span>
+</div>
+<div class="flex items-center gap-14">
+<button class="hover:opacity-70 transition-opacity duration-600">
+<span class="material-symbols-outlined text-[2rem]" data-icon="notifications">notifications</span>
+</button>
+<nav class="hidden md:flex items-center font-label font-medium text-[#1b1c19] text-[1.25rem] tracking-[0.3em]">
+<a class="hover:text-[#81000b] transition-colors duration-300" href="#">ARCHIVE</a>
+<a class="hover:text-[#81000b] transition-colors duration-300" href="#">TIMELINE</a>
+<a class="hover:text-[#81000b] transition-colors duration-300" href="#">PROCESS</a>
+</nav>
+<button class="hover:opacity-70 transition-opacity duration-600" id="open-menu">
+<span class="material-symbols-outlined font-light text-[2rem]" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="relative h-screen w-full flex flex-col items-center justify-center pt-16">
+<div class="arch-container w-full max-w-[90vw] px-12">
+<!-- Col 1: Black Widow -->
+<div class="h-[35%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD20p9WmoeBMwrSAkZb9oVbS_KBtiMfMEBBplWfRrqFPLA8hTTvFfMB0Zzfs-6kG_oF-vko2_I3cbeHEkBfaImY8Zlr0hHTseIVy_A2P7TdT0yBPuFN1HUwxi8VhiqSKSuHYkh4ewibJlqhOdRQ-d6Y8nHp2AffDZjB-GyoIoUxsyLsqULvbGte21brU3EkJZxPSuEXYGzXV1rIT510iPBC-cCx5EBVO06HWNsEFT_2E7UAUKkxm6qKkXIlTcmcvvvnISN3L-S68lw"/>
+</div>
+<!-- Col 2: Captain America -->
+<div class="h-[45%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZgf6hMEWbMzaPO8cGrXqA8Z1-DX2GhoxrfuzELYxf3FM4xDAwVv_E37itjupgiTp6sXpOTYT-nVSYr5coXxBTlmZ6hFnEyvo3OvVZzFdPBksjSxnPBHSLCLB7DVCoisGNAdWn21EDT0NK5si9QU4qvcnx8m6DSqbb0yz9WABRNeIeziEKWdZLBNe-am0jbIHWqrfBvMg-HEUCRBMN_gjWSKb7V1UHKNnY8zSBSvNJEhURMqMHBhi90OT39NQda-i5VcU49VS8vaU"/>
+</div>
+<!-- Col 3: Thor -->
+<div class="h-[55%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5j-DsJwZppBYmfSqouvUfdHcQUzGVYlUnkXPgkZ40_DonUyEX-yO7EdinhuyqRJN4X9titaI3VtWv1MbbU7w3gt1Od9HYcsFHGUxWqGEXgTttXaV8Ace-zXU1N3Lo8CIdTn7DxftqXPLVCURMZOuPDKsYvZbl5eEH4j3EsYfKxUaSieoa5wXHuCEHPNbjK71QgDugMe2oki_d6k85i2vaAf2Nn2SJpBA8T_YySpWNZvCpDAZcCH8NV8bF1d-0_MECKEm31RaaPpA"/>
+</div>
+<!-- Col 4: Black Panther -->
+<div class="h-[65%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHJhuMooZ9usCVf0UFCWOteXH7RimcZ7qd4WtDBqEevbMCRwEZ5XKRDBm6XsvNVQfG3UlRUREYA5lBbQzlwVa844I0t_zfGiFHxlHioSCgk6SPWRk7sv2FGn2DONSsOfli9e6A6ljfjI58XFZJzIMbdRCFkoSCiFONyz_jndV5_TiF-iIJLtphJQheDcJm3tXtf8RAPnByGx5XBfPp3uQZY9Cg3Ayu1xIxxWdg_x4vkyChBSXbk3xNyzX_pTSr1GLJWfHEz5mTnPI"/>
+</div>
+<!-- Col 5: Spider-Man -->
+<div class="h-[75%] w-full max-w-[80px] bg-surface-container-low overflow-hidden relative">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2eCXhlV4Sv4M89hVN8gmbBnmoSw9qThVPZWjzZFFVv-mhVG081aJjvHNpOIffwFG-cd_8nq9R-VapinXy4lr5tW2KrZ2qaU4OVn_qERBBJusyzU8yq4Q6-sjGCsHOhJgBltax1gnn41OVZZJID4RPFqJ_sIgpuZ8HstaXruwKpSW9vIYw9tKJaLRkCQQ7rQAA223VTwWcRRWVahsxNbfgjjH7z-PKYCRnvSL74tZFCtKr8Wn_VS_MtrDPsu3qe6ZFjYL7YW9yasU"/>
+</div>
+<!-- Central Gap with Vertical Text -->
+<div class="flex flex-col items-center justify-center px-8 h-full">
+<h1 class="vertical-text font-headline text-on-surface-variant tracking-[0.4em] text-sm uppercase font-semibold leading-none">
+                AVENGERS INITIATIVE
+            </h1>
+</div>
+<!-- Col 6: Venom -->
+<div class="h-[75%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcVP6H6Dp2HuHw1bhSw4u4wOjTIwFzDvu9CEa8MhU3FwH3qthDhoCOVdtdPr02FGEhnrJWpmq6M5rtHMcMto48tvMO6L_tSEK1VL4joB7xuTivGZ9x8N_zCYoAdJZnVVrNsU7kXrtgEnVVNEfecQqimAOiB-Aw58OeomUuKZ0y1HpoPjLwQ05VVxtJCYVFPTk6uz0vpErRD4THiJp0Ifl4JB1a8hRa653y3KeTQeHa83WZAXQC5_T2nvyrDfJfm5ncp-e3go5Ie0s"/>
+</div>
+<!-- Col 7: Moon Knight -->
+<div class="h-[65%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCop0m3K06H9xr8rcZQKiLFcFMnlUaotY3m7qUzNoQbnxvviJKbZJXcm6dgWkIm5v7bZQu_7vDBibOMQapMeJtwo9ENkbt7CLqtL6veBE5iZPpGhpmJtmcV225W-WSFUotPNv2s-LhLuh5GGkgc2FmePoaXTvFzvzozAK7O2zryTuN0lCPopwUR3d8on9KUTzRwLY9R3HE7KREkM2LzllSiEj3Ez4wHPPYc_72j6q4KxlfqDc7dYn2ACqzunf20hZsROX2Xm1qMU4k"/>
+</div>
+<!-- Col 8: Doctor Strange -->
+<div class="h-[55%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj0HeaH1UpuXopBmpfgBSz78Sv_booMEjuYNGbTnhaHkusGhIuVgbkbzTaqljOmaoCKicLL6dos0q8pf1L2pF5KVcRz2a_EYsHwIEQoF8npkF2ALo4LqlAI6CgssqTtobJ8FTtcMgjAOOj8d63f28oHjuABBTWfkgE1bdMSUhy59eqINaxjCGN_eeu_uMHm5hab60yqQeAmABWQ-sKRGR84mWalg3k4NUPHWeCqB29b7Jhxa45HhsKYfU7TX0DXWyCuMNMYFnCSxI"/>
+</div>
+<!-- Col 9: Scarlet Witch -->
+<div class="h-[45%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2uzTl3mNnFnGDfJ5p6niZYyPm0JskhDfSxGfBare3CZPuB5XAjeoJMZJpKASIgs_ANuDSE2-oIOI5KVTvK5niGsHah1Ny5Q4kxp2NBM8dyBb9iM9gha2ZrFP6pcW-R6vETiCQYmjAyasr7kbh14hVlDmq-MGaP2TkCmPDVUbXeJQbUhrkoBQnj-tItHIY6DO6FSmE4_ZNbCZ1DRzHrCK0Ek5970WZY62jYPDpHlFDVV4mABed4NFYyooOrrMqGWNocI1Cq7OoDJI"/>
+</div>
+<!-- Col 10: Loki -->
+<div class="h-[35%] w-full max-w-[80px] bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover ghost-filter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWWw6MyqxUPjUcWCOiZ9KJVaVOZTj-aq_DlCj_i0fP9ipdywi17gNIUxde8ltrk5AIpx1-YgBKs783gDNe5Fr-6zkixPMzKuUXwHG3XQ8z-yScF75_szg3NFm2KM40OYNibPqW4ri4aOrJU5YBwWzt0me6Rgf10d8YWSbSqzKa2OktZRWHMlEYWA7cuIu389YimlcIzbCv7yTtkOd-kjKHt4Z-B6nzwWyFsVIrZah6P_1R31HUP1UXNoueJ1hoO8cB8sg7OokzliQ"/>
+</div>
+</div>
+<div class="mt-12 text-center z-10 px-4">
+<p class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-on-tertiary-fixed-variant mb-4">
+            ASSEMBLE THE TEAM. SAVE THE WORLD.
+        </p>
+<h2 class="font-signature text-6xl md:text-7xl text-[#81000b] leading-none mb-12">
+            The Earth's Mightiest
+        </h2>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex flex-col md:flex-row justify-between items-center px-12 pb-12 bg-transparent text-[#1b1c19] gap-8 md:gap-0">
+<div class="flex items-center gap-3 group cursor-pointer">
+<span class="material-symbols-outlined text-[#4e4540] group-hover:text-[#81000b] transition-colors duration-600" data-icon="volume_up">volume_up</span>
+<span class="font-label uppercase tracking-[0.05em] text-[0.6875rem] text-[#4e4540] group-hover:text-[#81000b] transition-colors duration-600">
+            SEE ALL 15 AVENGERS
+        </span>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex gap-4 items-center">
+<button class="hover:text-[#81000b] transition-colors duration-600 active:scale-95">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+</button>
+<button class="hover:text-[#81000b] transition-colors duration-600 active:scale-95">
+<span class="material-symbols-outlined" data-icon="pause">pause</span>
+</button>
+<button class="hover:text-[#81000b] transition-colors duration-600 active:scale-95">
+<span class="material-symbols-outlined" data-icon="skip_next">skip_next</span>
+</button>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label uppercase tracking-[0.05em] text-[0.6875rem] text-[#1b1c19]">01 / 15</span>
+<div class="flex gap-2">
+<button class="hover:text-[#81000b] transition-colors duration-600">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="hover:text-[#81000b] transition-colors duration-600">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    const menuData = {
+        'moon-knight': {
+            name: 'Moon Knight',
+            desc: 'A mysterious vigilante empowered by the Egyptian moon god Khonshu, balancing multiple identities and brutal justice.',
+            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCop0m3K06H9xr8rcZQKiLFcFMnlUaotY3m7qUzNoQbnxvviJKbZJXcm6dgWkIm5v7bZQu_7vDBibOMQapMeJtwo9ENkbt7CLqtL6veBE5iZPpGhpmJtmcV225W-WSFUotPNv2s-LhLuh5GGkgc2FmePoaXTvFzvzozAK7O2zryTuN0lCPopwUR3d8on9KUTzRwLY9R3HE7KREkM2LzllSiEj3Ez4wHPPYc_72j6q4KxlfqDc7dYn2ACqzunf20hZsROX2Xm1qMU4k'
+        },
+        'venom': {
+            name: 'Venom',
+            desc: 'A dark symbiote anti-hero with sharp instincts, agility, and a mysterious bond with its host.',
+            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBcVP6H6Dp2HuHw1bhSw4u4wOjTIwFzDvu9CEa8MhU3FwH3qthDhoCOVdtdPr02FGEhnrJWpmq6M5rtHMcMto48tvMO6L_tSEK1VL4joB7xuTivGZ9x8N_zCYoAdJZnVVrNsU7kXrtgEnVVNEfecQqimAOiB-Aw58OeomUuKZ0y1HpoPjLwQ05VVxtJCYVFPTk6uz0vpErRD4THiJp0Ifl4JB1a8hRa653y3KeTQeHa83WZAXQC5_T2nvyrDfJfm5ncp-e3go5Ie0s'
+        },
+        'stories': {
+            name: 'Doctor Strange',
+            desc: 'Master of mystic arts and time manipulation, guarding reality against supernatural threats and multidimensional incursions.',
+            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAj0HeaH1UpuXopBmpfgBSz78Sv_booMEjuYNGbTnhaHkusGhIuVgbkbzTaqljOmaoCKicLL6dos0q8pf1L2pF5KVcRz2a_EYsHwIEQoF8npkF2ALo4LqlAI6CgssqTtobJ8FTtcMgjAOOj8d63f28oHjuABBTWfkgE1bdMSUhy59eqINaxjCGN_eeu_uMHm5hab60yqQeAmABWQ-sKRGR84mWalg3k4NUPHWeCqB29b7Jhxa45HhsKYfU7TX0DXWyCuMNMYFnCSxI'
+        },
+        'more': {
+            name: 'Captain America',
+            desc: 'Super soldier with strong moral values and leadership, wielding an indestructible vibranium shield across generations.',
+            img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZgf6hMEWbMzaPO8cGrXqA8Z1-DX2GhoxrfuzELYxf3FM4xDAwVv_E37itjupgiTp6sXpOTYT-nVSYr5coXxBTlmZ6hFnEyvo3OvVZzFdPBksjSxnPBHSLCLB7DVCoisGNAdWn21EDT0NK5si9QU4qvcnx8m6DSqbb0yz9WABRNeIeziEKWdZLBNe-am0jbIHWqrfBvMg-HEUCRBMN_gjWSKb7V1UHKNnY8zSBSvNJEhURMqMHBhi90OT39NQda-i5VcU49VS8vaU'
+        }
+    };
+
+    const overlay = document.getElementById('menu-overlay');
+    const openBtn = document.getElementById('open-menu');
+    const closeBtn = document.getElementById('close-menu');
+    const heroContent = document.getElementById('hero-content');
+    const heroImage = document.getElementById('hero-image');
+    const heroName = document.getElementById('hero-name');
+    const heroDesc = document.getElementById('hero-desc');
+
+    let currentHero = 'moon-knight';
+
+    function updateMenuContent(heroId) {
+        if (heroId === currentHero) return;
+        currentHero = heroId;
+        const data = menuData[heroId];
+        if (!data) return;
+
+        // Animate out
+        heroContent.style.opacity = '0';
+        heroContent.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            heroImage.src = data.img;
+            heroName.textContent = data.name;
+            heroDesc.textContent = data.desc;
+            
+            // Animate in
+            heroContent.style.opacity = '1';
+            heroContent.style.transform = 'translateY(0)';
+        }, 300);
+    }
+
+    openBtn.addEventListener('click', () => {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    function closeMenu() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeMenu);
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
+</script>
+</body></html>
