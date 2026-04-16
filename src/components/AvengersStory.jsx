@@ -158,7 +158,6 @@ export default function AvengersStory({ onClose }) {
           <div className="w-[600px] h-[800px] relative">
             <div className="absolute inset-0 bg-red-600/20 blur-[100px] animate-pulse" />
             <img 
-              loading="lazy"
               src={selectedHero.image} 
               alt={selectedHero.name}
               className="w-full h-full object-cover filter brightness-[1.1] contrast-[1.1] shadow-[0_0_120px_rgba(0,0,0,1)] border border-white/5"
