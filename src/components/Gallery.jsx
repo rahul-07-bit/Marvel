@@ -89,7 +89,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
   const [hoveredChar, setHoveredChar] = useState(null);
 
   const GALLERY_VIDEOS = [
-    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279122/hulk_aqsivg.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776315307/hulk_pvvdon.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279038/captainamerica_wwdjft.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279052/blackpanther_ysbqe1.mp4",
@@ -97,12 +97,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279112/venom_aolqww.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279048/moonknight_y6pxim.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279096/drstrange_gmejw5.mp4",
-    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279127/scarletwitch_c3kds0.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776314858/spiderman_nnpedk.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279047/loki_zhxgcu.mp4"
   ];
 
   const GALLERY_CHARS = [
-    "HULK", "CAPTAIN AMERICA", "THOR", "BLACK PANTHER", "DEADPOOL", "VENOM", "MOON KNIGHT", "DOCTOR STRANGE", "SCARLET WITCH", "LOKI"
+    "HULK", "CAPTAIN AMERICA", "THOR", "BLACK PANTHER", "DEADPOOL", "VENOM", "MOON KNIGHT", "DOCTOR STRANGE", "SPIDER-MAN", "LOKI"
   ];
 
   const globalOverlayVideo = activeGalleryIndex !== null ? GALLERY_VIDEOS[activeGalleryIndex] : null;
@@ -153,7 +153,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           setHoveredChar={setHoveredChar}
           heightClass="h-[35%]"
           imgSrc="/images/hulk.jpg"
-          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279122/hulk_aqsivg.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776315307/hulk_pvvdon.mp4"
         />
         {/* Col 1: Captain America */}
         <GalleryCard
@@ -254,18 +254,18 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           imgSrc="/images/doctorstrange.png"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279096/drstrange_gmejw5.mp4"
         />
-        {/* Col 8: Scarlet Witch */}
+        {/* Col 8: Spider-Man */}
         <GalleryCard
           colIndex={8}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
           isVideoPlaying={isVideoPlaying}
-          characterName="SCARLET WITCH"
+          characterName="SPIDER-MAN"
           setHoveredChar={setHoveredChar}
           heightClass="h-[45%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuA2uzTl3mNnFnGDfJ5p6niZYyPm0JskhDfSxGfBare3CZPuB5XAjeoJMZJpKASIgs_ANuDSE2-oIOI5KVTvK5niGsHah1Ny5Q4kxp2NBM8dyBb9iM9gha2ZrFP6pcW-R6vETiCQYmjAyasr7kbh14hVlDmq-MGaP2TkCmPDVUbXeJQbUhrkoBQnj-tItHIY6DO6FSmE4_ZNbCZ1DRzHrCK0Ek5970WZY62jYPDpHlFDVV4mABed4NFYyooOrrMqGWNocI1Cq7OoDJI"
-          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279127/scarletwitch_c3kds0.mp4"
+          imgSrc="/images/spiderman.jpg"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776314858/spiderman_nnpedk.mp4"
         />
         {/* Col 9: Loki */}
         <GalleryCard
