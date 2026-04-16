@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVideo, setActiveGalleryIndex, characterName, setHoveredChar, activeGalleryIndex, isVideoPlaying, isMobile }) => {
+const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVideo, setActiveGalleryIndex, characterName, setHoveredChar, activeGalleryIndex, isVideoPlaying }) => {
   const videoRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -56,7 +56,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
     }
   }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc]);
 
-  const showVideo = !isMobile && (isGlobal || isHovered);
+  const showVideo = isGlobal || isHovered;
 
   return (
     <div
@@ -65,18 +65,16 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      {!isMobile && (
-        <video
-          ref={videoRef}
-          src={currentVideoSrc}
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-          style={isGlobal ? { objectPosition: objectPosition } : {}}
-        />
-      )}
+      <video
+        ref={videoRef}
+        src={currentVideoSrc}
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        style={isGlobal ? { objectPosition: objectPosition } : {}}
+      />
       <img
         loading="lazy"
         src={imgSrc}
@@ -142,15 +140,12 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
 
   const activeText = activeGalleryIndex !== null ? GALLERY_CHARS[activeGalleryIndex] : (hoveredChar || "AVENGERS INITIATIVE");
 
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
-
   return (
     <main className="relative h-full min-h-[calc(100vh-80px)] w-full flex flex-col items-center justify-center pt-8">
-      <div className="arch-container w-full max-w-[90vw] px-12">
+      <div className="arch-container w-[1100px] px-12">
         {/* Col 0: Hulk */}
         <GalleryCard
           colIndex={0}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -164,7 +159,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 1: Captain America */}
         <GalleryCard
           colIndex={1}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -178,7 +172,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 2: Thor */}
         <GalleryCard
           colIndex={2}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -192,7 +185,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 3: Black Panther */}
         <GalleryCard
           colIndex={3}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -206,7 +198,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 4: Deadpool */}
         <GalleryCard
           colIndex={4}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -228,7 +219,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 5: Venom */}
         <GalleryCard
           colIndex={5}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -242,7 +232,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 6: Moon Knight */}
         <GalleryCard
           colIndex={6}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -256,7 +245,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 7: Doctor Strange */}
         <GalleryCard
           colIndex={7}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}
@@ -270,7 +258,6 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
         {/* Col 8: Spider-Man */}
         <GalleryCard
           colIndex={8}
-          isMobile={isMobile}
           globalOverlayVideo={globalOverlayVideo}
           setActiveGalleryIndex={setActiveGalleryIndex}
           activeGalleryIndex={activeGalleryIndex}

@@ -131,9 +131,9 @@ function App() {
                    </div>
                    
                    <div className="flex flex-col items-center group relative cursor-default">
-                   <span className="font-marvel text-7xl md:text-[9rem] tracking-[0.25em] leading-none text-center text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-700 select-none animate-[titleEntranceScale_3s_cubic-bezier(0.2,0.8,0.2,1)_forwards,glowPulseRed_5s_ease-in-out_infinite]">
-                     AVENGERS INITIATIVE
-                   </span>
+                     <span className="font-marvel text-[9rem] tracking-[0.25em] leading-none text-center text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-700 select-none animate-[titleEntranceScale_3s_cubic-bezier(0.2,0.8,0.2,1)_forwards,glowPulseRed_5s_ease-in-out_infinite]">
+                       AVENGERS INITIATIVE
+                     </span>
                    </div>
 
                    <span className="font-label text-[0.65rem] tracking-[0.7em] text-[#EC1D24] uppercase font-bold bg-[#EC1D24]/10 px-8 py-2.5 border-[1px] border-[#EC1D24]/40 rounded-[2px] shadow-[0_0_30px_rgba(236,29,36,0.15)] backdrop-blur-xl animate-[fadeIn_4s_ease-out]">
@@ -246,7 +246,7 @@ function App() {
             </div>
 
             {/* Center Section: Main Nav */}
-            <nav className="hidden lg:flex items-center gap-10 pointer-events-auto absolute left-1/2 -translate-x-1/2">
+            <nav className="flex items-center gap-10 pointer-events-auto absolute left-1/2 -translate-x-1/2">
                 <button 
                   onClick={() => setCurrentTab('home')}
                   className={`font-label text-[0.7rem] tracking-[0.4em] uppercase font-bold transition-all duration-500 hover:text-[#EC1D24] ${currentTab === 'home' ? 'text-[#EC1D24]' : 'text-gray-400'}`}
@@ -300,7 +300,7 @@ function App() {
 
           {/* Footer */}
           {currentTab === 'home' && (
-            <footer className="fixed bottom-0 left-0 w-full z-[80] flex flex-col md:flex-row justify-between items-center px-12 pb-12 bg-transparent text-gray-300 gap-8 md:gap-0 pointer-events-none transition-all duration-500 animate-[fadeIn_0.5s_ease-out]">
+            <footer className="fixed bottom-0 left-0 w-full z-[80] flex flex-row justify-between items-center px-12 pb-12 bg-transparent text-gray-300 gap-0 pointer-events-none transition-all duration-500 animate-[fadeIn_0.5s_ease-out]">
               <div 
                 className="flex items-center gap-3 group cursor-pointer pointer-events-auto"
                 onClick={() => setIsAvengersOpen(true)}
@@ -312,7 +312,7 @@ function App() {
               </div>
               <div className="flex items-center gap-8 pointer-events-auto">
                 <div className="flex gap-4 items-center">
-                  <button onClick={handlePrevVideo} className="hover:text-[#EC1D24] transition-colors duration-600 active:scale-95 hidden md:block">
+                  <button onClick={handlePrevVideo} className="hover:text-[#EC1D24] transition-colors duration-600 active:scale-95 block">
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24" }}>skip_previous</span>
                   </button>
                   <button onClick={togglePlayPause} className="hover:text-[#EC1D24] transition-colors duration-600 active:scale-95">

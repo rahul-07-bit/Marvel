@@ -50,30 +50,30 @@ const timelineData = [
 
 export default function AvengersTimeline({ onClose }) {
   return (
-    <section id="timeline-section" className="pt-16 pb-24 md:pb-32 px-6 md:px-24 bg-gradient-to-b from-transparent to-black/60 backdrop-blur-3xl relative min-h-[calc(100vh-80px)] overflow-hidden">
+    <section id="timeline-section" className="pt-24 pb-32 px-24 bg-gradient-to-b from-transparent to-black/60 backdrop-blur-3xl relative min-h-[calc(100vh-80px)] overflow-hidden">
       {/* Close Button */}
       <button 
         onClick={onClose}
-        className="absolute top-12 right-12 md:top-24 md:right-24 z-[100] text-gray-400 hover:text-[#EC1D24] transition-all duration-300 hover:scale-110 active:scale-95 group flex items-center gap-4"
+        className="absolute top-24 right-24 z-[100] text-gray-400 hover:text-[#EC1D24] transition-all duration-300 hover:scale-110 active:scale-95 group flex items-center gap-4"
       >
         <span className="font-label text-[0.7rem] tracking-[0.4em] uppercase font-black opacity-0 group-hover:opacity-100 transition-opacity">Return to terminal</span>
         <span className="material-symbols-outlined text-[3.5rem] font-light">close</span>
       </button>
 
       {/* Background Decorative Text */}
-      <div className="absolute top-20 right-0 opacity-[0.02] select-none pointer-events-none hidden lg:block">
+      <div className="absolute top-20 right-0 opacity-[0.02] select-none pointer-events-none block">
         <h2 className="font-marvel text-[25rem] uppercase leading-none text-white whitespace-nowrap translate-x-1/4">
           LEGACY
         </h2>
       </div>
 
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-16 relative z-10">
-        <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
+      <div className="w-[1240px] mx-auto flex flex-col gap-16 relative z-10">
+        <div className="flex flex-col gap-4 items-start text-left">
           <div className="flex items-center gap-4">
-             <span className="w-12 h-[1px] bg-red-600 hidden md:block"></span>
+             <span className="w-12 h-[1px] bg-red-600 block"></span>
              <span className="font-label text-red-600 tracking-[0.5em] text-xs font-black uppercase">Chronicles of Valor</span>
           </div>
-          <h2 className="font-marvel text-7xl md:text-9xl text-white uppercase tracking-tighter leading-none">
+          <h2 className="font-marvel text-9xl text-white uppercase tracking-tighter leading-none">
             The Timeline
           </h2>
         </div>
