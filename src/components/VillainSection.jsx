@@ -77,7 +77,7 @@ export default function VillainSection({ onClose }) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050000] flex flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
+    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050000] flex flex-col md:flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
       {/* Background Ambient Glow (Red/Dark) */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[800px] h-[800px] bg-red-950/10 rounded-full blur-[150px] pointer-events-none" />
       

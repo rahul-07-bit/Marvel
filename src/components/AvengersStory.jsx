@@ -97,7 +97,7 @@ export default function AvengersStory({ onClose }) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050505] flex flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
+    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050505] flex flex-col md:flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[800px] h-[800px] bg-red-900/5 rounded-full blur-[150px] pointer-events-none" />
       
@@ -111,7 +111,7 @@ export default function AvengersStory({ onClose }) {
       </button>
 
       {/* Hero Selector - Left Column */}
-      <div className="w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080808]/80 backdrop-blur-xl shrink-0">
+      <div className="w-full md:w-[320px] lg:w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080808]/80 backdrop-blur-xl shrink-0">
         <div className="px-10 mb-10">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-[1px] bg-red-600"></span>
@@ -158,6 +158,7 @@ export default function AvengersStory({ onClose }) {
           <div className="w-[600px] h-[800px] relative">
             <div className="absolute inset-0 bg-red-600/20 blur-[100px] animate-pulse" />
             <img 
+              loading="lazy"
               src={selectedHero.image} 
               alt={selectedHero.name}
               className="w-full h-full object-cover filter brightness-[1.1] contrast-[1.1] shadow-[0_0_120px_rgba(0,0,0,1)] border border-white/5"
