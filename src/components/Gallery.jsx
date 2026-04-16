@@ -89,7 +89,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
   const [hoveredChar, setHoveredChar] = useState(null);
 
   const GALLERY_VIDEOS = [
-    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776315307/hulk_pvvdon.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776316291/hulk_2_buxhrz.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279038/captainamerica_wwdjft.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279052/blackpanther_ysbqe1.mp4",
@@ -153,7 +153,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           setHoveredChar={setHoveredChar}
           heightClass="h-[35%]"
           imgSrc="/images/hulk.jpg"
-          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776315307/hulk_pvvdon.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776316291/hulk_2_buxhrz.mp4"
         />
         {/* Col 1: Captain America */}
         <GalleryCard
