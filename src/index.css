@@ -378,6 +378,11 @@ body {
     border-radius: 8px;
   }
   
+  /* Base Wrapper Fix */
+  .reveal-wrapper {
+    padding-top: 72px !important;
+  }
+
   .vertical-text {
     writing-mode: horizontal-tb !important;
     text-orientation: unset !important;
@@ -385,6 +390,16 @@ body {
     font-size: 1.5rem !important;
     text-align: center;
     letter-spacing: 0.2em;
+  }
+
+  /* Video Fixes */
+  video {
+    background: #000; /* Prevent blank white flash */
+  }
+
+  .gallery-video {
+    display: block !important;
+    visibility: visible !important;
   }
 
   /* Avengers Story Section */

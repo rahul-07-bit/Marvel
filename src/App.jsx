@@ -26,11 +26,8 @@ function App() {
     // Ensure the logo animation stays on screen with impact
     setTimeout(() => {
       setIntroPhase('settle');
-      // Added cinematic delay before final UI reveal
       setTimeout(() => {
         setIntroPhase('complete');
-        // Auto-trigger notification dot after UI reveal
-        setTimeout(() => setHasUnread(true), 2500);
       }, 2000); // 2s settle before main UI starts fade-in
     }, 3200); // 3.2s logo focus duration
   };
@@ -166,7 +163,9 @@ function App() {
               <video
                 src="https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776279018/intro_zr1f2r.mp4"
                 autoPlay
+                muted
                 playsInline
+                webkit-playsinline="true"
                 onEnded={finishVideo}
                 className="absolute inset-0 w-full h-full object-cover animate-[fadeIn_0.5s_ease-out]"
               />
@@ -268,10 +267,6 @@ function App() {
               aria-label="Notifications"
             >
               <span className="material-symbols-outlined text-[1.5rem] md:text-[2rem] text-gray-300 group-hover:text-white transition-all duration-500 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]" style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24" }}>notifications</span>
-              
-              {hasUnread && (
-                <div className="absolute top-2 right-2 w-[7px] h-[7px] bg-[#ed1d24] rounded-full shadow-[0_0_15px_rgba(237,29,36,0.9)] animate-pulse"></div>
-              )}
             </button>
 
             <button 

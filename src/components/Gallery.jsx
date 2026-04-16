@@ -50,18 +50,17 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       }
     } else {
       if (videoRef.current) {
-        if (!isHovered) {
+        if (!isHovered || isMobile) {
           videoRef.current.pause();
-          // videoRef.current.currentTime = 0; // Removing this for smoother resume if needed
         } else {
           videoRef.current.muted = true;
           videoRef.current.play().catch(console.error);
         }
       }
     }
-  }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc]);
+  }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc, isMobile]);
 
-  const showVideoEffect = (isGlobal || isHovered) && !isMobile;
+  const showVideoEffect = isGlobal || (isHovered && !isMobile);
 
   return (
     <div
@@ -73,9 +72,11 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       <video
         ref={videoRef}
         src={currentVideoSrc}
+        autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
         preload="metadata"
         className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-700 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         style={isGlobal ? { objectPosition: objectPosition } : {}}
@@ -130,18 +131,50 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
     };
   }, [setActiveGalleryIndex]);
 
-  // Synchronized startup
+  // Master-Slave Video Synchronization
   React.useEffect(() => {
-    if (activeGalleryIndex !== null) {
-      setTimeout(() => {
-        document.querySelectorAll('.gallery-video').forEach((video, index) => {
-          video.muted = index !== activeGalleryIndex;
-          video.currentTime = 0;
-          if (isVideoPlaying) video.play().catch(console.error);
-        });
-      }, 50);
-    }
-  }, [activeGalleryIndex]); // Specifically execute sync loop solely when the index transitions
+    if (activeGalleryIndex === null) return;
+
+    const videos = document.querySelectorAll('.gallery-video');
+    const masterVideo = videos[activeGalleryIndex]; // The visible/selected card acts as master
+
+    if (!masterVideo) return;
+
+    const syncVideos = () => {
+      videos.forEach((video) => {
+        if (video !== masterVideo) {
+          // Sync playback state
+          if (masterVideo.paused && !video.paused) video.pause();
+          if (!masterVideo.paused && video.paused) video.play().catch(() => {});
+          
+          // Sync time if drift > 0.1s
+          if (Math.abs(video.currentTime - masterVideo.currentTime) > 0.1) {
+            video.currentTime = masterVideo.currentTime;
+          }
+        }
+      });
+    };
+
+    const handleMasterPlay = () => {
+      videos.forEach(v => { if (v !== masterVideo) v.play().catch(() => {}); });
+    };
+
+    const handleMasterPause = () => {
+      videos.forEach(v => { if (v !== masterVideo) v.pause(); });
+    };
+
+    // Low-frequency sync for drift correction
+    const syncInterval = setInterval(syncVideos, 1000);
+
+    masterVideo.addEventListener('play', handleMasterPlay);
+    masterVideo.addEventListener('pause', handleMasterPause);
+
+    return () => {
+      clearInterval(syncInterval);
+      masterVideo.removeEventListener('play', handleMasterPlay);
+      masterVideo.removeEventListener('pause', handleMasterPause);
+    };
+  }, [activeGalleryIndex, isVideoPlaying]);
 
   const activeText = activeGalleryIndex !== null ? GALLERY_CHARS[activeGalleryIndex] : (hoveredChar || "AVENGERS INITIATIVE");
 
