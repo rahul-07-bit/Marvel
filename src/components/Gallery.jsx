@@ -91,7 +91,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
   const GALLERY_VIDEOS = [
     "https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776316291/hulk_2_buxhrz.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279038/captainamerica_wwdjft.mp4",
-    "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4",
+    "https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776317310/thor_2_ybsvtb.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279052/blackpanther_ysbqe1.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279051/Deadpool_xfnekw.mp4",
     "https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279112/venom_aolqww.mp4",
@@ -179,7 +179,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           setHoveredChar={setHoveredChar}
           heightClass="h-[55%]"
           imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuD5j-DsJwZppBYmfSqouvUfdHcQUzGVYlUnkXPgkZ40_DonUyEX-yO7EdinhuyqRJN4X9titaI3VtWv1MbbU7w3gt1Od9HYcsFHGUxWqGEXgTttXaV8Ace-zXU1N3Lo8CIdTn7DxftqXPLVCURMZOuPDKsYvZbl5eEH4j3EsYfKxUaSieoa5wXHuCEHPNbjK71QgDugMe2oki_d6k85i2vaAf2Nn2SJpBA8T_YySpWNZvCpDAZcCH8NV8bF1d-0_MECKEm31RaaPpA"
-          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/v1776279116/thor_zue9lg.mp4"
+          videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776317310/thor_2_ybsvtb.mp4"
         />
         {/* Col 3: Black Panther */}
         <GalleryCard
