@@ -97,7 +97,7 @@ export default function AvengersStory({ onClose }) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050505] flex flex-col md:flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
+    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050505] flex flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[800px] h-[800px] bg-red-900/5 rounded-full blur-[150px] pointer-events-none" />
       
@@ -111,7 +111,7 @@ export default function AvengersStory({ onClose }) {
       </button>
 
       {/* Hero Selector - Left Column */}
-      <div className="w-full md:w-[320px] lg:w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080808]/80 backdrop-blur-xl shrink-0">
+      <div className="w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080808]/80 backdrop-blur-xl shrink-0">
         <div className="px-10 mb-10">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-[1px] bg-red-600"></span>
@@ -147,7 +147,7 @@ export default function AvengersStory({ onClose }) {
       </div>
 
       {/* Cinematic Content Area */}
-      <div className="flex-1 relative flex flex-col md:flex-row overflow-hidden">
+      <div className="flex-1 relative flex flex-row overflow-hidden">
         
         {/* Cinematic Spotlight: Image appears centered first */}
         <div 
@@ -155,7 +155,7 @@ export default function AvengersStory({ onClose }) {
             ${transitionState === 'spotlight' ? 'opacity-100 scale-100 blur-none' : 'opacity-0 scale-90 blur-xl'}
           `}
         >
-          <div className="w-[80vw] h-[80vh] md:w-[600px] md:h-[800px] relative">
+          <div className="w-[600px] h-[800px] relative">
             <div className="absolute inset-0 bg-red-600/20 blur-[100px] animate-pulse" />
             <img 
               src={selectedHero.image} 
@@ -170,14 +170,14 @@ export default function AvengersStory({ onClose }) {
 
         {/* Story Text Area (Slides in from Left) */}
         <div 
-          className={`w-full md:w-1/2 flex flex-col justify-center px-10 md:px-20 relative z-20 h-full transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
+          className={`w-[640px] flex flex-col justify-center px-20 relative z-20 h-full transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
             ${transitionState === 'settled' ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-24 blur-sm'}
           `}
         >
           <span className="font-label text-red-600 tracking-[0.6em] text-[0.65rem] font-black uppercase inline-block mb-4">
              Classified Hero Profile // Level 7 Clearance
           </span>
-          <h1 className="font-marvel text-6xl md:text-[8rem] text-white leading-[0.85] uppercase tracking-tighter mb-8 drop-shadow-2xl">
+          <h1 className="font-marvel text-[8rem] text-white leading-[0.85] uppercase tracking-tighter mb-8 drop-shadow-2xl">
             {selectedHero.name}
           </h1>
           <div className="flex items-center gap-6 mb-12">
@@ -204,7 +204,7 @@ export default function AvengersStory({ onClose }) {
         </div>
 
         {/* Hero Portrait Area (Settled Right) */}
-        <div className="hidden md:flex flex-1 items-center justify-center p-12 relative h-full">
+        <div className="flex flex-1 items-center justify-center p-12 relative h-full">
            <div 
              className={`w-full h-full max-w-[500px] relative transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
                ${transitionState === 'settled' ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-32 scale-90 blur-md'}

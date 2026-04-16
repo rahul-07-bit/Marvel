@@ -141,7 +141,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
 
   return (
     <main className="relative h-full min-h-[calc(100vh-80px)] w-full flex flex-col items-center justify-center pt-8">
-      <div className="arch-container w-full max-w-[90vw] px-12">
+      <div className="arch-container w-[1100px] px-12">
         {/* Col 0: Hulk */}
         <GalleryCard
           colIndex={0}

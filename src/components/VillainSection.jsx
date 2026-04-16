@@ -77,7 +77,7 @@ export default function VillainSection({ onClose }) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050000] flex flex-col md:flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
+    <div className="min-h-[calc(100vh-80px)] pt-12 pb-32 bg-[#050000] flex flex-row relative overflow-hidden animate-[fadeIn_0.5s_ease-out]">
       {/* Background Ambient Glow (Red/Dark) */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[800px] h-[800px] bg-red-950/10 rounded-full blur-[150px] pointer-events-none" />
       
@@ -91,7 +91,7 @@ export default function VillainSection({ onClose }) {
       </button>
 
       {/* Villain Selector - Left Column */}
-      <div className="w-full md:w-[320px] lg:w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080000]/80 backdrop-blur-xl shrink-0">
+      <div className="w-[400px] border-r border-white/5 flex flex-col pt-12 pb-12 relative z-10 bg-[#080000]/80 backdrop-blur-xl shrink-0">
         <div className="px-10 mb-10">
           <div className="flex items-center gap-3 mb-2">
             <span className="w-8 h-[1px] bg-red-700"></span>
@@ -128,7 +128,7 @@ export default function VillainSection({ onClose }) {
       </div>
 
       {/* Cinematic Content Area */}
-      <div className="flex-1 relative flex flex-col md:flex-row overflow-hidden">
+      <div className="flex-1 relative flex flex-row overflow-hidden">
         
         {/* Initial State: Prompt */}
         {!selectedVillain && (
@@ -145,7 +145,7 @@ export default function VillainSection({ onClose }) {
               ${transitionState === 'spotlight' ? 'opacity-100 scale-100 blur-none' : 'opacity-0 scale-90 blur-xl'}
             `}
           >
-            <div className="w-[85vw] h-[70vh] md:w-[550px] md:h-[750px] relative">
+            <div className="w-[550px] h-[750px] relative">
               <div className="absolute inset-0 bg-red-900/30 blur-[100px] animate-pulse" />
               <img 
                 src={selectedVillain.image} 
@@ -165,14 +165,14 @@ export default function VillainSection({ onClose }) {
         {/* Villain Details Area (Slides in from Left) */}
         {selectedVillain && (
           <div 
-            className={`w-full md:w-1/2 flex flex-col justify-center px-10 md:px-20 relative z-20 h-full transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
+            className={`w-[640px] flex flex-col justify-center px-20 relative z-20 h-full transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
               ${transitionState === 'settled' ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-24 blur-sm'}
             `}
           >
             <span className="font-label text-red-700 tracking-[0.6em] text-[0.65rem] font-black uppercase inline-block mb-4">
                Critical Threat Analysis // Level 8 Clearance
             </span>
-            <h1 className="font-marvel text-6xl md:text-[8rem] text-white leading-[0.85] uppercase tracking-tighter mb-8 drop-shadow-2xl">
+            <h1 className="font-marvel text-[8rem] text-white leading-[0.85] uppercase tracking-tighter mb-8 drop-shadow-2xl">
               {selectedVillain.name}
             </h1>
             <div className="flex items-center gap-6 mb-12">
@@ -208,7 +208,7 @@ export default function VillainSection({ onClose }) {
 
         {/* Portrait Area (Settled Right) */}
         {selectedVillain && (
-          <div className="hidden md:flex flex-1 items-center justify-center p-12 relative h-full">
+          <div className="flex flex-1 items-center justify-center p-12 relative h-full">
              <div 
                className={`w-full h-full max-w-[500px] relative transition-all duration-[1200ms] cubic-bezier(0.2, 0.8, 0.2, 1)
                  ${transitionState === 'settled' ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-32 scale-90 blur-md'}
