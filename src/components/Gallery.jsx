@@ -141,16 +141,21 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
     if (!masterVideo) return;
 
     const syncVideos = () => {
-      videos.forEach((video) => {
+      videos.forEach((video, idx) => {
         if (video !== masterVideo) {
-          // Sync playback state
+          // Slave synchronization
+          video.muted = true; // Force mute duplicates
           if (masterVideo.paused && !video.paused) video.pause();
           if (!masterVideo.paused && video.paused) video.play().catch(() => {});
           
-          // Sync time if drift > 0.1s
           if (Math.abs(video.currentTime - masterVideo.currentTime) > 0.1) {
             video.currentTime = masterVideo.currentTime;
           }
+        } else {
+          // Master audio control
+          // Note: Browser policies may still require initial mute for autoplay.
+          // We allow the master to be unmuted if needed.
+          video.muted = false; 
         }
       });
     };
