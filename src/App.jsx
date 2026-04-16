@@ -164,7 +164,7 @@ function App() {
           ) : (
             <>
               <video 
-                src="/videos/intro.mp4" 
+                src="https://res.cloudinary.com/ds1mlkugo/video/upload/f_auto,q_auto/v1776279018/intro_zr1f2r.mp4" 
                 autoPlay 
                 playsInline
                 onEnded={finishVideo}

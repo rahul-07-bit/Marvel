@@ -36,7 +36,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
     }
   };
 
-  const handleClick = (e) => {
+  const handleDoubleClick = (e) => {
     e.stopPropagation();
     if (activeGalleryIndex === colIndex) return;
     setActiveGalleryIndex(colIndex);
@@ -52,7 +52,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       if (videoRef.current) {
         if (!isHovered) {
           videoRef.current.pause();
-          videoRef.current.currentTime = 0;
+          // videoRef.current.currentTime = 0; // Removing this for smoother resume if needed
         } else {
           videoRef.current.muted = true;
           videoRef.current.play().catch(console.error);
@@ -61,31 +61,29 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
     }
   }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc]);
 
-  const showVideo = (isGlobal || isHovered) && !isMobile;
+  const showVideoEffect = (isGlobal || isHovered) && !isMobile;
 
   return (
     <div
       className={`gallery-card-wrapper ${heightClass} w-full max-w-[80px] bg-[#1c1c1c] overflow-hidden relative group cursor-pointer`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
     >
-      {showVideo && (
-        <video
-          ref={videoRef}
-          src={currentVideoSrc}
-          loop
-          muted
-          playsInline
-          preload="none"
-          className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-          style={isGlobal ? { objectPosition: objectPosition } : {}}
-        />
-      )}
+      <video
+        ref={videoRef}
+        src={currentVideoSrc}
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-700 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        style={isGlobal ? { objectPosition: objectPosition } : {}}
+      />
       <img
         src={imgSrc}
         loading="lazy"
-        className={`absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-500 ease-in-out ${showVideo ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}
+        className={`absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-700 ease-in-out ${showVideoEffect ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}
         alt="Gallery character"
         style={isGlobal ? { opacity: 0 } : {}}
       />
