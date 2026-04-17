@@ -3,6 +3,11 @@ import React, { useRef, useState } from 'react';
 const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVideo, setActiveGalleryIndex, characterName, setHoveredChar, activeGalleryIndex, isVideoPlaying }) => {
   const videoRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 1024 || ('ontouchstart' in window));
+  }, []);
 
   const isGlobal = !!globalOverlayVideo;
   const currentVideoSrc = isGlobal ? globalOverlayVideo : videoSrc;
@@ -10,8 +15,9 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   const positionPercent = colIndex * (100 / 9);
   const objectPosition = `${positionPercent}% center`;
 
+  // Desktop Handlers
   const handleMouseEnter = () => {
-    if (isGlobal) return;
+    if (isGlobal || isMobile) return;
     setIsHovered(true);
     setHoveredChar(characterName);
     if (videoRef.current) {
@@ -21,7 +27,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   };
 
   const handleMouseLeave = () => {
-    if (isGlobal) return;
+    if (isGlobal || isMobile) return;
     setIsHovered(false);
     setHoveredChar(null);
     if (videoRef.current) {
@@ -32,14 +38,50 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   };
 
   const handleDoubleClick = (e) => {
+    if (isMobile) return; // Prevent native double-click conflicts on mobile
     e.stopPropagation();
     if (activeGalleryIndex === colIndex) return;
     setActiveGalleryIndex(colIndex);
   };
 
+  // Mobile Tap Handler
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (!isMobile) return; // Desktop uses hover + double click
+
+    if (!isHovered) {
+      // First tap -> play preview video
+      window.dispatchEvent(new CustomEvent('mobileTapSync', { detail: colIndex }));
+      setIsHovered(true);
+      setHoveredChar(characterName);
+      if (videoRef.current) {
+        videoRef.current.muted = true;
+        videoRef.current.play().catch(console.error);
+      }
+    } else {
+      // Second tap -> expand and play full video
+      setActiveGalleryIndex(colIndex);
+    }
+  };
+
+  React.useEffect(() => {
+    const handleMobileChange = (e) => {
+      if (e.detail !== colIndex && isHovered && isMobile) {
+        setIsHovered(false);
+        if (videoRef.current && !isGlobal) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+        }
+      }
+    };
+    window.addEventListener('mobileTapSync', handleMobileChange);
+    return () => window.removeEventListener('mobileTapSync', handleMobileChange);
+  }, [isHovered, colIndex, isGlobal, isMobile]);
+
   React.useEffect(() => {
     if (isGlobal) {
       if (videoRef.current) {
+        videoRef.current.muted = false; // Force unmute strictly for full video
         if (isVideoPlaying) videoRef.current.play().catch(console.error);
         else videoRef.current.pause();
       }
@@ -63,23 +105,25 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onDoubleClick={handleDoubleClick}
+      onClick={handleClick}
     >
       <video
         ref={videoRef}
         src={currentVideoSrc}
-        loop
-        muted
+        loop={!isGlobal}
+        muted={!isGlobal}
+        controls={isGlobal}
         playsInline
         webkit-playsinline="true"
-        preload="none"
+        preload="auto"
         crossOrigin="anonymous"
-        className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-700 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+        className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-300 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         style={isGlobal ? { objectPosition: objectPosition } : {}}
       />
       <img
         src={imgSrc}
         loading="lazy"
-        className={`absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-700 ease-in-out ${showVideoEffect ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}
+        className={`absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-300 ease-in-out ${showVideoEffect ? 'opacity-0 z-0' : 'opacity-100 z-10'}`}
         alt="Gallery character"
         style={isGlobal ? { opacity: 0 } : {}}
       />
