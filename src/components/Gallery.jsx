@@ -137,6 +137,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
     >
       <video
         ref={videoRef}
+        src={currentVideoSrc}
         loop={!isGlobal}
         muted={!isActiveCard}
         controls={isActiveCard}
@@ -147,9 +148,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
         onError={handleVideoError}
         className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-300 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         style={isGlobal ? { objectPosition: objectPosition } : {}}
-      >
-        <source src={currentVideoSrc} type="video/mp4" />
-      </video>
+      />
       <img
         src={imgSrc}
         loading="lazy"
