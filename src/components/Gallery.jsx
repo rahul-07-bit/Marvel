@@ -98,32 +98,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
     return () => window.removeEventListener('mobileTapSync', handleMobileChange);
   }, [isHovered, colIndex, isGlobal, isMobile]);
 
-  React.useEffect(() => {
-    let animationFrameId;
-    if (isGlobal && typeof window !== "undefined") {
-      if (isActiveCard) {
-        const dispatchSyncFrame = () => {
-          if (videoRef.current && !videoRef.current.paused) {
-             window.dispatchEvent(new CustomEvent('videoSyncFrame', { detail: { time: videoRef.current.currentTime } }));
-          }
-          animationFrameId = requestAnimationFrame(dispatchSyncFrame);
-        };
-        animationFrameId = requestAnimationFrame(dispatchSyncFrame);
-      } else {
-        const handleSync = (e) => {
-           if (videoRef.current) {
-             const diff = Math.abs(videoRef.current.currentTime - e.detail.time);
-             if (diff > 0.1) {
-                videoRef.current.currentTime = e.detail.time;
-             }
-           }
-        };
-        window.addEventListener('videoSyncFrame', handleSync);
-        return () => window.removeEventListener('videoSyncFrame', handleSync);
-      }
-    }
-    return () => { if (animationFrameId) cancelAnimationFrame(animationFrameId); };
-  }, [isGlobal, isActiveCard]);
+   // Manual interval synchronizations disabled to respect constraint 'no heavy logic / no intervals'.
 
   React.useEffect(() => {
     if (isGlobal) {
