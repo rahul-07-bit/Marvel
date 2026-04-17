@@ -6,8 +6,12 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   const [isMobile, setIsMobile] = useState(false);
 
   React.useEffect(() => {
-    setIsMobile(window.innerWidth < 1024 || ('ontouchstart' in window));
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth < 1024 || ('ontouchstart' in window));
+    }
   }, []);
+
+  if (!videoSrc || !imgSrc) return <div className="hidden">Loading...</div>; // React Safety Fallback
 
   const isGlobal = !!globalOverlayVideo;
   const currentVideoSrc = isGlobal ? globalOverlayVideo : videoSrc;
@@ -59,7 +63,9 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
 
     if (!isHovered) {
       // First tap -> play preview video (silent)
-      window.dispatchEvent(new CustomEvent('mobileTapSync', { detail: colIndex }));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent('mobileTapSync', { detail: colIndex }));
+      }
       setIsHovered(true);
       setHoveredChar(characterName);
       if (videoRef.current) {
@@ -78,6 +84,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   };
 
   React.useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleMobileChange = (e) => {
       if (e.detail !== colIndex && isHovered && isMobile) {
         setIsHovered(false);
@@ -175,6 +182,8 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
   const globalOverlayVideo = activeGalleryIndex !== null ? GALLERY_VIDEOS[activeGalleryIndex] : null;
 
   React.useEffect(() => {
+    if (typeof document === "undefined") return;
+    
     const handleEsc = (e) => {
       if (e.key === 'Escape') setActiveGalleryIndex(null);
     };
@@ -221,7 +230,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           characterName="CAPTAIN AMERICA"
           setHoveredChar={setHoveredChar}
           heightClass="h-[45%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuAZgf6hMEWbMzaPO8cGrXqA8Z1-DX2GhoxrfuzELYxf3FM4xDAwVv_E37itjupgiTp6sXpOTYT-nVSYr5coXxBTlmZ6hFnEyvo3OvVZzFdPBksjSxnPBHSLCLB7DVCoisGNAdWn21EDT0NK5si9QU4qvcnx8m6DSqbb0yz9WABRNeIeziEKWdZLBNe-am0jbIHWqrfBvMg-HEUCRBMN_gjWSKb7V1UHKNnY8zSBSvNJEhURMqMHBhi90OT39NQda-i5VcU49VS8vaU"
+          imgSrc="/images/captainamerica.jpg"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_mp4,q_40/v1776279038/captainamerica_wwdjft.mp4"
         />
         {/* Col 2: Thor */}
@@ -234,7 +243,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           characterName="THOR"
           setHoveredChar={setHoveredChar}
           heightClass="h-[55%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuD5j-DsJwZppBYmfSqouvUfdHcQUzGVYlUnkXPgkZ40_DonUyEX-yO7EdinhuyqRJN4X9titaI3VtWv1MbbU7w3gt1Od9HYcsFHGUxWqGEXgTttXaV8Ace-zXU1N3Lo8CIdTn7DxftqXPLVCURMZOuPDKsYvZbl5eEH4j3EsYfKxUaSieoa5wXHuCEHPNbjK71QgDugMe2oki_d6k85i2vaAf2Nn2SJpBA8T_YySpWNZvCpDAZcCH8NV8bF1d-0_MECKEm31RaaPpA"
+          imgSrc="/images/thor.jpg"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_mp4,q_40/v1776317310/thor_2_ybsvtb.mp4"
         />
         {/* Col 3: Black Panther */}
@@ -281,7 +290,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           characterName="VENOM"
           setHoveredChar={setHoveredChar}
           heightClass="h-[75%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuBcVP6H6Dp2HuHw1bhSw4u4wOjTIwFzDvu9CEa8MhU3FwH3qthDhoCOVdtdPr02FGEhnrJWpmq6M5rtHMcMto48tvMO6L_tSEK1VL4joB7xuTivGZ9x8N_zCYoAdJZnVVrNsU7kXrtgEnVVNEfecQqimAOiB-Aw58OeomUuKZ0y1HpoPjLwQ05VVxtJCYVFPTk6uz0vpErRD4THiJp0Ifl4JB1a8hRa653y3KeTQeHa83WZAXQC5_T2nvyrDfJfm5ncp-e3go5Ie0s"
+          imgSrc="/images/venom.jpg"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_mp4,q_40/v1776279112/venom_aolqww.mp4"
         />
         {/* Col 6: Moon Knight */}
@@ -294,7 +303,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           characterName="MOON KNIGHT"
           setHoveredChar={setHoveredChar}
           heightClass="h-[65%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCop0m3K06H9xr8rcZQKiLFcFMnlUaotY3m7qUzNoQbnxvviJKbZJXcm6dgWkIm5v7bZQu_7vDBibOMQapMeJtwo9ENkbt7CLqtL6veBE5iZPpGhpmJtmcV225W-WSFUotPNv2s-LhLuh5GGkgc2FmePoaXTvFzvzozAK7O2zryTuN0lCPopwUR3d8on9KUTzRwLY9R3HE7KREkM2LzllSiEj3Ez4wHPPYc_72j6q4KxlfqDc7dYn2ACqzunf20hZsROX2Xm1qMU4k"
+          imgSrc="/images/moonknight.jpg"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_mp4,q_40/v1776279048/moonknight_y6pxim.mp4"
         />
         {/* Col 7: Doctor Strange */}
@@ -333,7 +342,7 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           characterName="LOKI"
           setHoveredChar={setHoveredChar}
           heightClass="h-[35%]"
-          imgSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuDWWw6MyqxUPjUcWCOiZ9KJVaVOZTj-aq_DlCj_i0fP9ipdywi17gNIUxde8ltrk5AIpx1-YgBKs783gDNe5Fr-6zkixPMzKuUXwHG3XQ8z-yScF75_szg3NFm2KM40OYNibPqW4ri4aOrJU5YBwWzt0me6Rgf10d8YWSbSqzKa2OktZRWHMlEYWA7cuIu389YimlcIzbCv7yTtkOd-kjKHt4Z-B6nzwWyFsVIrZah6P_1R31HUP1UXNoueJ1hoO8cB8sg7OokzliQ"
+          imgSrc="/images/loki.jpg"
           videoSrc="https://res.cloudinary.com/ds1mlkugo/video/upload/f_mp4,q_40/v1776279047/loki_zhxgcu.mp4"
         />
       </div>
