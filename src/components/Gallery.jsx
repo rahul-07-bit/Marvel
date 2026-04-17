@@ -99,6 +99,31 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   }, [isHovered, colIndex, isGlobal, isMobile]);
 
   React.useEffect(() => {
+    let syncInterval;
+    if (isGlobal && typeof window !== "undefined") {
+      if (isActiveCard) {
+        syncInterval = setInterval(() => {
+          if (videoRef.current && !videoRef.current.paused) {
+             window.dispatchEvent(new CustomEvent('videoSyncFrame', { detail: { time: videoRef.current.currentTime } }));
+          }
+        }, 150);
+      } else {
+        const handleSync = (e) => {
+           if (videoRef.current) {
+             const diff = Math.abs(videoRef.current.currentTime - e.detail.time);
+             if (diff > 0.15) {
+                videoRef.current.currentTime = e.detail.time;
+             }
+           }
+        };
+        window.addEventListener('videoSyncFrame', handleSync);
+        return () => window.removeEventListener('videoSyncFrame', handleSync);
+      }
+    }
+    return () => { if (syncInterval) clearInterval(syncInterval); };
+  }, [isGlobal, isActiveCard]);
+
+  React.useEffect(() => {
     if (isGlobal) {
       if (videoRef.current) {
         videoRef.current.muted = !isActiveCard; 
