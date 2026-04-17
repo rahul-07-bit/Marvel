@@ -10,13 +10,8 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   const positionPercent = colIndex * (100 / 9);
   const objectPosition = `${positionPercent}% center`;
 
-  const [isMobile, setIsMobile] = useState(false);
-  React.useEffect(() => {
-    setIsMobile(window.innerWidth < 1024);
-  }, []);
-
   const handleMouseEnter = () => {
-    if (isGlobal || isMobile) return;
+    if (isGlobal) return;
     setIsHovered(true);
     setHoveredChar(characterName);
     if (videoRef.current) {
@@ -26,7 +21,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   };
 
   const handleMouseLeave = () => {
-    if (isGlobal || isMobile) return;
+    if (isGlobal) return;
     setIsHovered(false);
     setHoveredChar(null);
     if (videoRef.current) {
@@ -50,7 +45,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
       }
     } else {
       if (videoRef.current) {
-        if (!isHovered || isMobile) {
+        if (!isHovered) {
           videoRef.current.pause();
         } else {
           videoRef.current.muted = true;
@@ -58,9 +53,9 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
         }
       }
     }
-  }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc, isMobile]);
+  }, [isGlobal, isHovered, isVideoPlaying, currentVideoSrc]);
 
-  const showVideoEffect = isGlobal || (isHovered && !isMobile);
+  const showVideoEffect = isGlobal || isHovered;
 
   return (
     <div
@@ -146,8 +141,8 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           // Slave synchronization
           video.muted = true; // Force mute duplicates
           if (masterVideo.paused && !video.paused) video.pause();
-          if (!masterVideo.paused && video.paused) video.play().catch(() => {});
-          
+          if (!masterVideo.paused && video.paused) video.play().catch(() => { });
+
           if (Math.abs(video.currentTime - masterVideo.currentTime) > 0.1) {
             video.currentTime = masterVideo.currentTime;
           }
@@ -155,13 +150,13 @@ export default function Gallery({ activeGalleryIndex, setActiveGalleryIndex, isV
           // Master audio control
           // Note: Browser policies may still require initial mute for autoplay.
           // We allow the master to be unmuted if needed.
-          video.muted = false; 
+          video.muted = false;
         }
       });
     };
 
     const handleMasterPlay = () => {
-      videos.forEach(v => { if (v !== masterVideo) v.play().catch(() => {}); });
+      videos.forEach(v => { if (v !== masterVideo) v.play().catch(() => { }); });
     };
 
     const handleMasterPause = () => {
