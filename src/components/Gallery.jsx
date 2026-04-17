@@ -99,19 +99,21 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
   }, [isHovered, colIndex, isGlobal, isMobile]);
 
   React.useEffect(() => {
-    let syncInterval;
+    let animationFrameId;
     if (isGlobal && typeof window !== "undefined") {
       if (isActiveCard) {
-        syncInterval = setInterval(() => {
+        const dispatchSyncFrame = () => {
           if (videoRef.current && !videoRef.current.paused) {
              window.dispatchEvent(new CustomEvent('videoSyncFrame', { detail: { time: videoRef.current.currentTime } }));
           }
-        }, 150);
+          animationFrameId = requestAnimationFrame(dispatchSyncFrame);
+        };
+        animationFrameId = requestAnimationFrame(dispatchSyncFrame);
       } else {
         const handleSync = (e) => {
            if (videoRef.current) {
              const diff = Math.abs(videoRef.current.currentTime - e.detail.time);
-             if (diff > 0.15) {
+             if (diff > 0.1) {
                 videoRef.current.currentTime = e.detail.time;
              }
            }
@@ -120,7 +122,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
         return () => window.removeEventListener('videoSyncFrame', handleSync);
       }
     }
-    return () => { if (syncInterval) clearInterval(syncInterval); };
+    return () => { if (animationFrameId) cancelAnimationFrame(animationFrameId); };
   }, [isGlobal, isActiveCard]);
 
   React.useEffect(() => {
@@ -165,7 +167,7 @@ const GalleryCard = ({ heightClass, imgSrc, videoSrc, colIndex, globalOverlayVid
         controls={isActiveCard}
         playsInline
         webkit-playsinline="true"
-        preload="metadata"
+        preload={isActiveCard && isGlobal ? "auto" : "metadata"}
         crossOrigin="anonymous"
         onError={handleVideoError}
         className={`gallery-video absolute inset-0 w-full h-full object-cover ghost-filter transition-opacity duration-300 ease-in-out ${showVideoEffect ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
